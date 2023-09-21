@@ -16,6 +16,12 @@ using std::deque;
 osp2023::id_type getId(string line);
 osp2023::time_type getBurstTime(string line);
 
+/**
+ * Write the functions that select which process to run next and load the corresponding PCB. 
+With this scheme, the process that requests the CPU first is allocated the CPU first. We finish the first 
+process before moving onto the next and so on. As all processes arrive at time 0, you may follow the 
+sequence given by the generated datafile for execution.
+*/
 int main(int argc, char** argv) {
   bool isValid = true;
   string datafile;
@@ -60,28 +66,36 @@ int main(int argc, char** argv) {
     for (int i = 1; i < rq.size(); ++i) {
       rq.at(i)->total_wait_time = rq.at(i - 1)->total_wait_time + rq.at(i - 1)->time_used;
       rq.at(i)->time_used = rq.at(i)->total_time;
-      cout << rq.at(i)->total_wait_time << endl;
+      // cout << rq.at(i)->total_wait_time << endl;
     }
 
-    cout << "----------------------" << endl;
+    
     
     // osp2023::time_type totalWait;
-    int totalWait = 0;
-    int avgWait;
+    /**
+     * For FIFO
+     * Turnaround time = wait time + total time
+     * Response time = wait time
+    */
+    osp2023::time_type totalWait = 0;
+    osp2023::time_type totalTA = 0;
+    
     for (int i = 0; i < rq.size(); ++i) {
       totalWait += rq.at(i)->total_wait_time;
+      totalTA += rq.at(i)->total_wait_time + rq.at(i)->total_time;
+      cout << "PID: " << rq.at(i)->id << endl;
+      cout << "\twait time: " << rq.at(i)->total_wait_time << endl;
+      cout << "\tresponse time: " << rq.at(i)->total_wait_time << endl;
+      cout << "\tturnaround: " << rq.at(i)->total_wait_time + rq.at(i)->total_time << endl;
+      cout << "----------------------" << endl;
     }
 
-    avgWait = totalWait / (osp2023::time_type) rq.size();
+    osp2023::time_type avgWait = totalWait / (osp2023::time_type) rq.size();
+    osp2023::time_type avgTA = totalTA / (osp2023::time_type) rq.size();
 
     cout << "Average waiting time: " << avgWait << endl;
-
-
-    // int size = rq.size();
-    // for (int i = 0; i < size; i++) {
-    //   cout << rq.front()->id << " burst time: " << rq.front()->total_time << endl;
-    //   rq.pop();
-    // }
+    cout << "Average response time: " << avgWait << endl;
+    cout << "Average turnaround time: " << avgTA << endl;
   }
 
   return EXIT_SUCCESS;

@@ -16,3 +16,7 @@ program:
 Your programs are expected to produce the following output on the screen:
 1. For each process: Process ID, burst time, turnaround time, waiting time, and response time.
 2. For all processes: Average turnaround time, average waiting time, and average response time.
+
+Response time is the amount of time it takes for the CPU to respond to a request made by a process. It is the duration between the arrival of a process and the first time it runs.
+
+The time elapsed between the arrival of a process and its completion is known as turnaround time.
