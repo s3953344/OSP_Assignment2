@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <queue>
+#include <deque>
 #include "../types.h"
 #include "../pcb.h"
 
@@ -9,7 +9,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-using std::queue;
+using std::deque;
 
 #define ARG_COUNT 2
 
@@ -20,7 +20,8 @@ int main(int argc, char** argv) {
   bool isValid = true;
   string datafile;
   std::ifstream file;
-  queue<pcb*> readyQueue;
+  // the ready queue
+  deque<pcb*> rq = deque<pcb*>();
   
 
   if (argc != ARG_COUNT) {
@@ -47,20 +48,39 @@ int main(int argc, char** argv) {
     while (getline(file, line)) {
       osp2023::id_type pid = getId(line);
       osp2023::time_type burstTime = getBurstTime(line);
-      readyQueue.push(new pcb(pid, burstTime));
+      rq.push_back(new pcb(pid, burstTime));
     }
 
     /*
      * FIFO CALCULATIONS
     */
-    readyQueue.front()->total_wait_time = 0;
+    rq.front()->total_wait_time = 0;
+    rq.front()->time_used = rq.front()->total_time;
+
+    for (int i = 1; i < rq.size(); ++i) {
+      rq.at(i)->total_wait_time = rq.at(i - 1)->total_wait_time + rq.at(i - 1)->time_used;
+      rq.at(i)->time_used = rq.at(i)->total_time;
+      cout << rq.at(i)->total_wait_time << endl;
+    }
+
+    cout << "----------------------" << endl;
     
+    // osp2023::time_type totalWait;
+    int totalWait = 0;
+    int avgWait;
+    for (int i = 0; i < rq.size(); ++i) {
+      totalWait += rq.at(i)->total_wait_time;
+    }
+
+    avgWait = totalWait / (osp2023::time_type) rq.size();
+
+    cout << "Average waiting time: " << avgWait << endl;
 
 
-    // int size = readyQueue.size();
+    // int size = rq.size();
     // for (int i = 0; i < size; i++) {
-    //   cout << readyQueue.front()->id << " burst time: " << readyQueue.front()->total_time << endl;
-    //   readyQueue.pop();
+    //   cout << rq.front()->id << " burst time: " << rq.front()->total_time << endl;
+    //   rq.pop();
     // }
   }
 
@@ -68,7 +88,10 @@ int main(int argc, char** argv) {
 }
 
 
-
+/**
+ * @param line A string which should have a single delimeter character ','
+ * @return the id, aka, the first part of the delimited string. If there is no delimeter, then the number is assumed to be the id
+*/
 osp2023::id_type getId(string line) {
   string pid;
   int length = line.length();
@@ -81,6 +104,11 @@ osp2023::id_type getId(string line) {
   return (osp2023::id_type) std::stoi(pid);
 }
 
+/**
+ * @param line A string which should have a single delimeter character ','
+ * @return the burst time, aka, the second part of the delimited string.
+ * if the delimeter does not exist, then it returns osp2023::time_not_set
+*/
 osp2023::time_type getBurstTime(string line) {
   const size_t startPos = line.find(',');
   if (startPos != string::npos) {
