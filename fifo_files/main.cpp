@@ -9,10 +9,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::string;
-
 using std::deque;
-
-#define ARG_COUNT 2
 
 void fifo(std::deque<pcb*> rq);
 
