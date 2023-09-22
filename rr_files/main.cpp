@@ -10,7 +10,6 @@ using std::string;
 using std::deque;
 
 /**
- *
  * Write the functions that select what process to run next, and load the corresponding PCB and add it 
  * back to the ready queue when the process has used up its quantum. 
  * 

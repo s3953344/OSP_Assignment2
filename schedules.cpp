@@ -12,7 +12,7 @@ using std::deque;
   * Turnaround time = wait time + total time
   * Response time = wait time
 */
-void fifo(std::deque<pcb*> rq) {
+void fifo(std::deque<pcb*> rq, osp2023::time_type quantum) {
   // first process has 0 wait time
   rq.front()->total_wait_time = 0;
   rq.front()->time_used = rq.front()->total_time;
@@ -41,19 +41,26 @@ void fifo(std::deque<pcb*> rq) {
   * SJF CALCULATIONS
   * For SJF, sort the queue (stable) and use FIFO
 */
-void sjf(std::deque<pcb*> rq) {
+void sjf(std::deque<pcb*> rq, osp2023::time_type quantum) {
   // sort the processes in the ready queue
   std::stable_sort(rq.begin(), rq.end(), [](const pcb* lhs, const pcb* rhs) {
     return lhs->total_time < rhs->total_time;
   });
 
   // Then from now on, same calculations as FIFO
-  fifo(rq);
+  fifo(rq, quantum);
 }
 
 /**
  * RR CALCULATIONS
 */
-void rr(std::deque<pcb*> rq) {
-  
+void rr(std::deque<pcb*> rq, osp2023::time_type quantum) {
+  int jobsRemaining = rq.size();
+  int i = 0;
+  while (jobsRemaining != 0) {
+    // job finishes within quantum
+
+    // if (rq.at(i)->time_used - quantum)
+    // rq.at(i)->total_time
+  }
 }

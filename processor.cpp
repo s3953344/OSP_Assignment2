@@ -147,8 +147,13 @@ osp2023::time_type Processor::getBurstTime(string line) {
   }
 }
 
-void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq)) {
-  schedule(this->rq);
+// void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq)) {
+//   schedule(this->rq);
+//   calculateTimes();
+// }
+
+void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq, osp2023::time_type quantum)) {
+  schedule(rq, quantum);
   calculateTimes();
 }
 
