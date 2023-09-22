@@ -149,4 +149,36 @@ osp2023::time_type Processor::getBurstTime(string line) {
 
 void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq)) {
   schedule(this->rq);
+  calculateTimes();
+}
+
+void Processor::calculateTimes() {
+  // sort by ID
+  std::stable_sort(rq.begin(), rq.end(), [](const pcb* lhs, const pcb* rhs) {
+    return lhs->id < rhs->id;
+  });
+
+  osp2023::time_type totalWait = 0;
+  osp2023::time_type totalTA = 0;
+  osp2023::time_type totalResponse = 0;
+  for (long unsigned int i = 0; i < rq.size(); ++i) {
+    totalWait += rq.at(i)->total_wait_time;
+    totalTA += rq.at(i)->turnaround;
+    totalResponse += rq.at(i)->response_time;
+
+    cout << "PID: " << rq.at(i)->id << endl;
+    cout << "Burst: " << rq.at(i)->total_time << endl;
+    cout << "Waiting: " << rq.at(i)->total_wait_time << endl;
+    cout << "----------" << endl;
+  }
+
+  // calculate totals
+  osp2023::time_type avgWait = totalWait / (osp2023::time_type) rq.size();
+  osp2023::time_type avgTA = totalTA / (osp2023::time_type) rq.size();
+  osp2023::time_type avgResponse = totalResponse / (osp2023::time_type) rq.size();
+
+  // display total stats
+  cout << "Average waiting time: " << avgWait << endl;
+  cout << "Average response time: " << avgResponse << endl;
+  cout << "Average turnaround time: " << avgTA << endl;
 }

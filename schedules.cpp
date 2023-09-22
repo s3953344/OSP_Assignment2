@@ -23,31 +23,18 @@ void fifo(std::deque<pcb*> rq) {
     rq.at(i)->total_wait_time = rq.at(i - 1)->total_wait_time + rq.at(i - 1)->time_used;
     // time used is the same as the burst time because the job must finish
     rq.at(i)->time_used = rq.at(i)->total_time;
+    rq.at(i)->response_time = rq.at(i)->total_wait_time;
+    rq.at(i)->turnaround = rq.at(i)->total_wait_time + rq.at(i)->total_time;
   }
 
-  osp2023::time_type totalWait = 0;
-  osp2023::time_type totalTA = 0;
+  // // calculate totals
+  // osp2023::time_type avgWait = totalWait / (osp2023::time_type) rq.size();
+  // osp2023::time_type avgTA = totalTA / (osp2023::time_type) rq.size();
 
-  for (long unsigned int i = 0; i < rq.size(); ++i) {
-    // update totals
-    totalWait += rq.at(i)->total_wait_time;
-    totalTA += rq.at(i)->total_wait_time + rq.at(i)->total_time;
-    // calculate and display individual stats for each process
-    cout << "PID: " << rq.at(i)->id << endl;
-    cout << "\twait time: " << rq.at(i)->total_wait_time << endl;
-    cout << "\tresponse time: " << rq.at(i)->total_wait_time << endl;
-    cout << "\tturnaround: " << rq.at(i)->total_wait_time + rq.at(i)->total_time << endl;
-    cout << "----------------------" << endl;
-  }
-
-  // calculate totals
-  osp2023::time_type avgWait = totalWait / (osp2023::time_type) rq.size();
-  osp2023::time_type avgTA = totalTA / (osp2023::time_type) rq.size();
-
-  // display total stats
-  cout << "Average waiting time: " << avgWait << endl;
-  cout << "Average response time: " << avgWait << endl;
-  cout << "Average turnaround time: " << avgTA << endl;
+  // // display total stats
+  // cout << "Average waiting time: " << avgWait << endl;
+  // cout << "Average response time: " << avgWait << endl;
+  // cout << "Average turnaround time: " << avgTA << endl;
 }
 
 /**

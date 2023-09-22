@@ -11,11 +11,15 @@ using std::deque;
 
 /**
  *
-This algorithm associates with each process the length of the process’s CPU burst time. When the 
-CPU is available, it is assigned to the process that has the smallest CPU burst time. If the CPU burst
-times of two processes are the same, FIFO scheduling is used to break the tie.
-In this case, insert PCBs to the ready queue in sorted order by CPU burst time, with the shortest 
-process as the first and the longest at the last. From there, it is the same algorithm as FIFO. 
+ * Write the functions that select what process to run next, and load the corresponding PCB and add it 
+ * back to the ready queue when the process has used up its quantum. 
+ * 
+ * The round-robin algorithm is such that each process takes its turn using up its quantum until it finishes.
+ * The CPU scheduler goes around the ready queue, allocating the CPU to each process for a time 
+ * interval of up to 1 time quantum. 
+ * 
+ * A time quantum is generally from 10 to 100 milliseconds in length. You may choose different quantum 
+ * sizes within the range for your experiments. 
 */
 int main(int argc, char** argv) {
   Processor processor = Processor();

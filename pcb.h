@@ -22,11 +22,15 @@ class pcb {
     // the priority level for this process
     // how much time has this process spent waiting for the cpu?
     osp2023::time_type total_wait_time;
-    // what time was this process last on the cpu?
+    // time between arrival and process finished
+    osp2023::time_type turnaround;
+    // time between arrival and first start execution
+    osp2023::time_type response_time;
 
     pcb();
     pcb(osp2023::id_type id, osp2023::time_type total_time);
-    pcb(osp2023::id_type id, osp2023::time_type total_time, osp2023::time_type time_used, osp2023::time_type total_wait_time);
+    // pcb(osp2023::id_type id, osp2023::time_type total_time, osp2023::time_type time_used, osp2023::time_type total_wait_time);
+    
     // max and min duration for a process in our system.
     static constexpr osp2023::time_type MAX_DURATION = 100;
     static constexpr osp2023::time_type MIN_DURATION = 10;
