@@ -30,3 +30,5 @@ fifo: ./fifo_files/main.o pcb.o processor.o schedules.o
 sjf: ./sjf_files/main.o pcb.o processor.o schedules.o
 	cd sjf_files && $(MAKE)
 
+rr: ./rr_files/main.o pcb.o processor.o schedules.o
+	cd rr_files && $(MAKE)

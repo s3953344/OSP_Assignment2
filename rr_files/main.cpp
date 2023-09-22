@@ -1,6 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <deque>
 #include "../types.h"
 #include "../pcb.h"
 #include "../processor.h"
@@ -23,7 +20,7 @@ process as the first and the longest at the last. From there, it is the same alg
 int main(int argc, char** argv) {
   Processor processor = Processor();
   bool success = processor.processFile(argc, argv);
-  if (success) processor.runSchedule(&sjf);
+  if (success) processor.runSchedule(&rr);
 
   return EXIT_SUCCESS;
 }

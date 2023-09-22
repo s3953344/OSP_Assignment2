@@ -6,6 +6,12 @@ using std::endl;
 using std::string;
 using std::deque;
 
+/**
+  * FIFO CALCULATIONS
+  * For FIFO
+  * Turnaround time = wait time + total time
+  * Response time = wait time
+*/
 void fifo(std::deque<pcb*> rq) {
   // first process has 0 wait time
   rq.front()->total_wait_time = 0;
@@ -42,4 +48,18 @@ void fifo(std::deque<pcb*> rq) {
   cout << "Average waiting time: " << avgWait << endl;
   cout << "Average response time: " << avgWait << endl;
   cout << "Average turnaround time: " << avgTA << endl;
+}
+
+/**
+  * SJF CALCULATIONS
+  * For SJF, sort the queue (stable) and use FIFO
+*/
+void sjf(std::deque<pcb*> rq) {
+  // sort the processes in the ready queue
+  std::stable_sort(rq.begin(), rq.end(), [](const pcb* lhs, const pcb* rhs) {
+    return lhs->total_time < rhs->total_time;
+  });
+
+  // Then from now on, same calculations as FIFO
+  fifo(rq);
 }
