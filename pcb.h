@@ -26,6 +26,9 @@ class pcb {
     osp2023::time_type turnaround;
     // time between arrival and first start execution
     osp2023::time_type response_time;
+    
+    osp2023::time_type first_run_time;
+    osp2023::time_type completion_time;
 
     pcb();
     pcb(osp2023::id_type id, osp2023::time_type total_time);

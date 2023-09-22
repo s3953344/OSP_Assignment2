@@ -153,7 +153,7 @@ osp2023::time_type Processor::getBurstTime(string line) {
 // }
 
 void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq, osp2023::time_type quantum)) {
-  schedule(rq, quantum);
+  schedule(this->rq, quantum);
   calculateTimes();
 }
 
@@ -174,6 +174,8 @@ void Processor::calculateTimes() {
     cout << "PID: " << rq.at(i)->id << endl;
     cout << "Burst: " << rq.at(i)->total_time << endl;
     cout << "Waiting: " << rq.at(i)->total_wait_time << endl;
+    cout << "Start: " << rq.at(i)->first_run_time << endl;
+    cout << "Completion: " << rq.at(i)->completion_time << endl;
     cout << "----------" << endl;
   }
 
