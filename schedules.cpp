@@ -63,3 +63,10 @@ void sjf(std::deque<pcb*> rq) {
   // Then from now on, same calculations as FIFO
   fifo(rq);
 }
+
+/**
+ * RR CALCULATIONS
+*/
+void rr(std::deque<pcb*> rq) {
+  
+}

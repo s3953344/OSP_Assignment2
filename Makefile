@@ -23,6 +23,8 @@ clean:
 	# cd ../round_robin && $(MAKE) clean;
 	# cd ../;
 	rm -f fifo;
+	rm -f sjr;
+	rm -f rr;
 
 fifo: ./fifo_files/main.o pcb.o processor.o schedules.o
 	cd fifo_files && $(MAKE)
