@@ -23,6 +23,6 @@ clean:
 	cd ../;
 	rm fifo;
 
-fifo: ./fifo_files/main.o pcb.o
+fifo: ./fifo_files/main.o pcb.o processor.o
 	cd fifo_files && $(MAKE)
 

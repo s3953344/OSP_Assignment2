@@ -8,6 +8,11 @@ using std::string;
 
 #define ARG_COUNT 2
 
+Processor::Processor() {
+  this->datafile = "";
+  this->quantum = osp2023::time_not_set;
+}
+
 Processor::Processor(std::string datafile) {
   this->datafile = datafile;
   this->quantum = osp2023::time_not_set;
@@ -45,6 +50,7 @@ bool Processor::processFile(int argc, char** argv) {
 
   // if all checks pass
   if (isValid) {
+    this->datafile = datafile;
     std::ifstream file = std::ifstream(datafile);
     string line;
     
