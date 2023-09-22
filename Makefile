@@ -20,10 +20,10 @@ clean:
 	rm -rf ppd *.o *.dSYM;
 	cd fifo_files && $(MAKE) clean;
 	cd sjf_files && $(MAKE) clean;
-	# cd ../round_robin && $(MAKE) clean;
-	# cd ../;
+	cd rr_files && $(MAKE) clean;
+	
 	rm -f fifo;
-	rm -f sjr;
+	rm -f sjf;
 	rm -f rr;
 
 fifo: ./fifo_files/main.o pcb.o processor.o schedules.o

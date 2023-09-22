@@ -1,4 +1,5 @@
 #include "processor.h"
+#include <cmath>
 
 using std::deque;
 using std::cin;
@@ -174,15 +175,15 @@ void Processor::calculateTimes() {
     cout << "PID: " << rq.at(i)->id << endl;
     cout << "Burst: " << rq.at(i)->total_time << endl;
     cout << "Waiting: " << rq.at(i)->total_wait_time << endl;
-    cout << "Start: " << rq.at(i)->first_run_time << endl;
-    cout << "Completion: " << rq.at(i)->completion_time << endl;
+    // cout << "Start: " << rq.at(i)->first_run_time << endl;
+    // cout << "Completion: " << rq.at(i)->completion_time << endl;
     cout << "----------" << endl;
   }
 
-  // calculate totals
-  osp2023::time_type avgWait = totalWait / (osp2023::time_type) rq.size();
-  osp2023::time_type avgTA = totalTA / (osp2023::time_type) rq.size();
-  osp2023::time_type avgResponse = totalResponse / (osp2023::time_type) rq.size();
+  // calculate totals (with proper rounding of times)
+  osp2023::time_type avgWait = std::round((float)totalWait / (float) rq.size());
+  osp2023::time_type avgTA = std::round((float)totalTA / (float) rq.size());
+  osp2023::time_type avgResponse = std::round((float)totalResponse / (float)rq.size());
 
   // display total stats
   cout << "Average waiting time: " << avgWait << endl;
