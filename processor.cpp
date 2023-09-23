@@ -46,13 +46,14 @@ bool Processor::processFile(int argc, char** argv) {
 
 
   // sjf and fifo must not have 3 args
-  if (isValid && argc == ARG_COUNT && schedule == "./rr") {
+  string scheduleName = schedule.substr(schedule.length() - 2, 2);
+  if (isValid && argc == ARG_COUNT && scheduleName == "rr") {
     isValid = false;
     cout << "Round robin requires ./rr <quantum> <datafile>" << endl;
   }
 
   // rr must have 3 args
-  if (isValid && argc == ARG_COUNT_WITH_QUANTUM && schedule != "./rr") {
+  if (isValid && argc == ARG_COUNT_WITH_QUANTUM && scheduleName != "rr") {
     isValid = false;
     cout << "FIFO or SJF must be of form ./{schedule} <datafile>" << endl;
   }
@@ -172,12 +173,12 @@ void Processor::calculateTimes() {
     totalTA += rq.at(i)->turnaround;
     totalResponse += rq.at(i)->response_time;
 
-    cout << "PID: " << rq.at(i)->id << endl;
-    cout << "Burst: " << rq.at(i)->total_time << endl;
-    cout << "Waiting: " << rq.at(i)->total_wait_time << endl;
-    // cout << "Start: " << rq.at(i)->first_run_time << endl;
-    // cout << "Completion: " << rq.at(i)->completion_time << endl;
-    cout << "----------" << endl;
+    // cout << "PID: " << rq.at(i)->id << endl;
+    // cout << "Burst: " << rq.at(i)->total_time << endl;
+    // cout << "Waiting: " << rq.at(i)->total_wait_time << endl;
+    // // cout << "Start: " << rq.at(i)->first_run_time << endl;
+    // // cout << "Completion: " << rq.at(i)->completion_time << endl;
+    // cout << "----------" << endl;
   }
 
   // calculate totals (with proper rounding of times)
@@ -186,7 +187,10 @@ void Processor::calculateTimes() {
   osp2023::time_type avgResponse = std::round((float)totalResponse / (float)rq.size());
 
   // display total stats
-  cout << "Average waiting time: " << avgWait << endl;
-  cout << "Average response time: " << avgResponse << endl;
-  cout << "Average turnaround time: " << avgTA << endl;
+  cout << avgResponse << endl;
+  // cout << avgTA << endl;
+  // cout << avgWait << endl;
+  // cout << "Average waiting time: " << avgWait << endl;
+  // cout << "Average response time: " << avgResponse << endl;
+  // cout << "Average turnaround time: " << avgTA << endl;
 }
