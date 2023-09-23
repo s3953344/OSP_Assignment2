@@ -23,9 +23,6 @@ bool Processor::processFile(int argc, char** argv) {
   std::ifstream file;
   osp2023::time_type quantum;
 
-  // the ready queue
-  // this->rq = deque<pcb*>();
-  
   // check num of args
   if (argc < ARG_COUNT || argc > ARG_COUNT_WITH_QUANTUM) {
     cout << "Unexpected number of args." << endl;
@@ -169,6 +166,8 @@ void Processor::calculateTimes() {
   osp2023::time_type totalWait = 0;
   osp2023::time_type totalTA = 0;
   osp2023::time_type totalResponse = 0;
+
+  // Display stats and calculate totals
   for (long unsigned int i = 0; i < rq.size(); ++i) {
     totalWait += rq.at(i)->total_wait_time;
     totalTA += rq.at(i)->turnaround;
@@ -187,11 +186,16 @@ void Processor::calculateTimes() {
   osp2023::time_type avgTA = std::round((float)totalTA / (float) rq.size());
   osp2023::time_type avgResponse = std::round((float)totalResponse / (float)rq.size());
 
-  // display total stats
-  // cout << avgResponse << endl;
-  // cout << avgTA << endl;
-  // cout << avgWait << endl;
+  // Display total averages
   cout << "Average waiting time: " << avgWait << endl;
   cout << "Average response time: " << avgResponse << endl;
   cout << "Average turnaround time: " << avgTA << endl;
+
+  /**
+   * Display one stat at a time. I used one line of this code at a time
+   * to get all the results for the tables and I commented out every out cout line
+  */
+  // cout << avgResponse << endl;
+  // cout << avgTA << endl;
+  // cout << avgWait << endl;
 }

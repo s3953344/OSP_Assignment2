@@ -32,7 +32,6 @@ class pcb {
 
     pcb();
     pcb(osp2023::id_type id, osp2023::time_type total_time);
-    // pcb(osp2023::id_type id, osp2023::time_type total_time, osp2023::time_type time_used, osp2023::time_type total_wait_time);
     
     // max and min duration for a process in our system.
     static constexpr osp2023::time_type MAX_DURATION = 100;

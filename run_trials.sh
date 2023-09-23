@@ -1,3 +1,5 @@
+# This script runs every schedule on all 10 datafiles and puts the result into a file within ./results
+
 cd results
 rm -f output
 
