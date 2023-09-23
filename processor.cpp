@@ -152,6 +152,11 @@ osp2023::time_type Processor::getBurstTime(string line) {
 void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq, osp2023::time_type quantum)) {
   schedule(this->rq, quantum);
   calculateTimes();
+  int size = this->rq.size();
+  for (int i = 0; i < size; ++i) {
+    delete this->rq.front();
+    this->rq.pop_front();
+  }
 }
 
 void Processor::calculateTimes() {
