@@ -12,10 +12,6 @@
 class Processor {
   public:
     Processor();
-    // Processor(std::string datafile);
-    // Processor(std::string datafile, osp2023::time_type quantum);
-    // void runSchedule(void (*schedule)(std::deque<pcb*> rq));
-    // void runSchedule(void (*schedule)(std::deque<pcb*> rq, osp2023::time_type quantum), osp2023::time_type quantum);
     void runSchedule(void (*schedule)(std::deque<pcb*> rq, osp2023::time_type quantum));
     bool processFile(int argc, char** argv);
     

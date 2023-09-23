@@ -15,16 +15,6 @@ Processor::Processor() {
   this->quantum = osp2023::time_not_set;
 }
 
-// Processor::Processor(std::string datafile) {
-//   this->datafile = datafile;
-//   this->quantum = osp2023::time_not_set;
-// }
-
-// Processor::Processor(std::string datafile, osp2023::time_type quantum) {
-//   this->datafile = datafile;
-//   this->quantum = quantum;
-// }
-
 bool Processor::processFile(int argc, char** argv) {
   bool isValid = true;
   string datafile;
@@ -159,11 +149,6 @@ osp2023::time_type Processor::getBurstTime(string line) {
   }
 }
 
-// void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq)) {
-//   schedule(this->rq);
-//   calculateTimes();
-// }
-
 void Processor::runSchedule(void (*schedule)(std::deque<pcb*> rq, osp2023::time_type quantum)) {
   schedule(this->rq, quantum);
   calculateTimes();
@@ -183,12 +168,12 @@ void Processor::calculateTimes() {
     totalTA += rq.at(i)->turnaround;
     totalResponse += rq.at(i)->response_time;
 
-    // cout << "PID: " << rq.at(i)->id << endl;
-    // cout << "Burst: " << rq.at(i)->total_time << endl;
-    // cout << "Waiting: " << rq.at(i)->total_wait_time << endl;
-    // // cout << "Start: " << rq.at(i)->first_run_time << endl;
-    // // cout << "Completion: " << rq.at(i)->completion_time << endl;
-    // cout << "----------" << endl;
+    cout << "PID: " << rq.at(i)->id << endl;
+    cout << "Burst: " << rq.at(i)->total_time << endl;
+    cout << "Turnaround Time: " << rq.at(i)->turnaround << endl;
+    cout << "Waiting Time: " << rq.at(i)->total_wait_time << endl;
+    cout << "Response Time: " << rq.at(i)->response_time << endl;
+    cout << "----------" << endl;
   }
 
   // calculate totals (with proper rounding of times)
@@ -197,10 +182,10 @@ void Processor::calculateTimes() {
   osp2023::time_type avgResponse = std::round((float)totalResponse / (float)rq.size());
 
   // display total stats
-  cout << avgResponse << endl;
+  // cout << avgResponse << endl;
   // cout << avgTA << endl;
   // cout << avgWait << endl;
-  // cout << "Average waiting time: " << avgWait << endl;
-  // cout << "Average response time: " << avgResponse << endl;
-  // cout << "Average turnaround time: " << avgTA << endl;
+  cout << "Average waiting time: " << avgWait << endl;
+  cout << "Average response time: " << avgResponse << endl;
+  cout << "Average turnaround time: " << avgTA << endl;
 }
