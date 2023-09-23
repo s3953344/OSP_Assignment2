@@ -80,6 +80,16 @@ bool Processor::processFile(int argc, char** argv) {
       isValid = false;
       cout << "Quantum given cannot be 0 or less." << endl;
     }
+
+    if (isValid && converted < pcb::MIN_DURATION) {
+      isValid = false;
+      cout << "Quantum given cannot be less than minimum duration " << converted << endl;
+    }
+
+    if (isValid && converted > pcb::MAX_DURATION) {
+      isValid = false;
+      cout << "Quantum given cannot be more than maximum duration " << converted << endl;
+    }
     
     if (isValid) {
       // set the quantum size
