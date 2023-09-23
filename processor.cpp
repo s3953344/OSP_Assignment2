@@ -13,6 +13,7 @@ using std::string;
 Processor::Processor() {
   this->datafile = "";
   this->quantum = osp2023::time_not_set;
+  this->rq = deque<pcb*>();
 }
 
 bool Processor::processFile(int argc, char** argv) {
@@ -23,7 +24,7 @@ bool Processor::processFile(int argc, char** argv) {
   osp2023::time_type quantum;
 
   // the ready queue
-  this->rq = deque<pcb*>();
+  // this->rq = deque<pcb*>();
   
   // check num of args
   if (argc < ARG_COUNT || argc > ARG_COUNT_WITH_QUANTUM) {
